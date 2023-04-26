@@ -23,7 +23,7 @@ func main() {
 		return
 	}
 	log.Println("welcome to the emmy repl")
-	prompt := "E> "
+	prompt := "ε> "
 	reader := bufio.NewReader(os.Stdin)
 	l := lexer.NewScanner()
 	for {

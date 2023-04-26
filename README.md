@@ -19,10 +19,10 @@ $ emmy "25+25"
 50
 ```
 
-> the emmy shell is prefixed with `E>`
+> the emmy shell is prefixed with `ε>`
 
 ```emmy
-E> 25+25
+ε> 25+25
 50.0
 ```
 
