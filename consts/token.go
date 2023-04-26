@@ -8,18 +8,16 @@ type Token struct {
 }
 
 var BUILD_INS = map[string]int{
-	"@sin":         SIN,
-	"@cos":         COS,
-	"@tan":         TAN,
-	"@lb":          LB,
-	"@ln":          LN,
-	"@lg":          LG,
-	"@scalar_prod": SCALARPROD,
-	"@vec_prod":    VECPROD,
-	"@pi":          PI,
-	"@e":           E,
-	"@phi":         PHI,
-	"@sqrt":        SQRT,
+	"@sin":  SIN,
+	"@cos":  COS,
+	"@tan":  TAN,
+	"@lb":   LB,
+	"@ln":   LN,
+	"@lg":   LG,
+	"@pi":   PI,
+	"@e":    E,
+	"@phi":  PHI,
+	"@sqrt": SQRT,
 }
 
 const (
@@ -54,8 +52,6 @@ const (
 	LB // log2
 	LN // log e
 	LG // log 10
-	SCALARPROD
-	VECPROD
 )
 
 var KIND_LOOKUP = map[int]string{
@@ -85,6 +81,4 @@ var KIND_LOOKUP = map[int]string{
 	LB:             "@LB",
 	LN:             "@LN",
 	LG:             "@LG",
-	SCALARPROD:     "@SCALAR_PROD",
-	VECPROD:        "@VEC_PROD",
 }

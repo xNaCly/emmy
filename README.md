@@ -53,17 +53,15 @@ Emmy is interpreted on a line by line basis, hitting enter will make emmy forget
 
 > `x,y` represent the functions arguments
 
-| Name        | Symbol              | Description                                   | Example                                |
-| ----------- | ------------------- | --------------------------------------------- | -------------------------------------- |
-| sqrt        | `@sqrt{x}`          | calculates the square root of x               | `@sqrt{25}` = 5                        |
-| sin         | `@sin{x}`           | calculates the sinus of x                     | `@sin{5}`= -0.132352                   |
-| cos         | `@cos{x}`           | calculates the cos of x                       | `@cos{5}`= 0.991203                    |
-| tan         | `@tan{x}`           | calculates the tan of x                       | `@tan{5}`= -0.133526                   |
-| lb          | `@lb{x}`            | calculates the binary logarithm (log_2) of x  | `@lb{5}`= 2.321928                     |
-| ln          | `@ln{x}`            | calculates the natural logarithm (log_e) of x | `@ln{5}`= 1.609438                     |
-| lg          | `@lg{x}`            | calculates the common logarithm (log_10) of x | `@lg{5}`= 0.69897                      |
-| scalar_prod | `@scalar_prod{x,y}` | calculates the scalar product of x and y      | `@scalarprod{[3,2,1], [1,2,3]}`= 10    |
-| vec_prod    | `@vec_prod{x,y}`    | calculates the vector product of x and y      | `@vecprod{[3,2,1], [1,2,3]}`= {4,-8,4} |
+| Name | Symbol     | Description                                   | Example              |
+| ---- | ---------- | --------------------------------------------- | -------------------- |
+| sqrt | `@sqrt{x}` | calculates the square root of x               | `@sqrt{25}` = 5      |
+| sin  | `@sin{x}`  | calculates the sinus of x                     | `@sin{5}`= -0.132352 |
+| cos  | `@cos{x}`  | calculates the cos of x                       | `@cos{5}`= 0.991203  |
+| tan  | `@tan{x}`  | calculates the tan of x                       | `@tan{5}`= -0.133526 |
+| lb   | `@lb{x}`   | calculates the binary logarithm (log_2) of x  | `@lb{5}`= 2.321928   |
+| ln   | `@ln{x}`   | calculates the natural logarithm (log_e) of x | `@ln{5}`= 1.609438   |
+| lg   | `@lg{x}`   | calculates the common logarithm (log_10) of x | `@lg{5}`= 0.69897    |
 
 ### Planned features
 
