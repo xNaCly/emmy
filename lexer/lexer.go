@@ -27,7 +27,11 @@ func NewScanner() *Scanner {
 func (s *Scanner) NewInput(input string) *Scanner {
 	s.p = 0
 	s.in = []rune(input)
-	s.cc = s.in[s.p]
+	if len(input) == 0 {
+		s.cc = 0
+	} else {
+		s.cc = s.in[s.p]
+	}
 	return s
 }
 
@@ -42,10 +46,6 @@ func (s *Scanner) advance() {
 
 func (s *Scanner) isAtEnd() bool {
 	return s.p == len(s.in) || s.cc == 0
-}
-
-func (s *Scanner) scan() []consts.Token {
-	return nil
 }
 
 func (s *Scanner) error(lexem string, msg string) {
@@ -80,6 +80,9 @@ func (s *Scanner) matchWhile(matcher func(rune) bool) string {
 }
 
 func (s *Scanner) Start() []consts.Token {
+	if len(s.in) == 0 {
+		return []consts.Token{}
+	}
 	token := make([]consts.Token, 0)
 	for !s.isAtEnd() {
 		var kind int

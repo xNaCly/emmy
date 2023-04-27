@@ -96,3 +96,14 @@ func TestLexerBuildIn(t *testing.T) {
 		return o == v, o
 	})
 }
+
+func FuzzLexer(f *testing.F) {
+	tests := []string{"129.0", "12_9128.9182_1", "@sin", "@sqrt", "()"}
+	for _, tc := range tests {
+		f.Add(tc)
+	}
+	s := NewScanner()
+	f.Fuzz(func(t *testing.T, a string) {
+		s.NewInput(a).Start()
+	})
+}
