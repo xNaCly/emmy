@@ -70,13 +70,23 @@ func (s *Scanner) error(lexem string, msg string) {
 }
 
 // returns all runes matching the matcher function as a string, returns a found type
-func (s *Scanner) matchWhile(matcher func(rune) bool) string {
+func (s *Scanner) matchWhile(matcher func(rune) bool) (string, int) {
 	b := strings.Builder{}
+	start := s.p
 	for matcher(s.cc) {
 		b.WriteRune(s.cc)
 		s.advance()
 	}
-	return b.String()
+	return b.String(), start
+}
+
+func (s *Scanner) buildToken(kind int, val any, raw string, p int) consts.Token {
+	return consts.Token{
+		Pos:     p,
+		Kind:    kind,
+		Content: val,
+		Raw:     raw,
+	}
 }
 
 func (s *Scanner) Start() []consts.Token {
@@ -121,25 +131,26 @@ func (s *Scanner) Start() []consts.Token {
 			if unicode.IsDigit(s.cc) {
 				kind = consts.NUMBER
 
-				raw = s.matchWhile(func(r rune) bool {
+				r, pos := s.matchWhile(func(r rune) bool {
 					return unicode.IsDigit(r) || r == '.' || r == 'e' || r == '_'
 				})
 
-				t, err := strconv.ParseFloat(raw, 64)
+				t, err := strconv.ParseFloat(r, 64)
 				if err != nil {
-					s.error(raw, "not a float: "+err.Error())
+					s.error(r, "not a float: "+err.Error())
 				}
-				val = t
+				token = append(token, s.buildToken(consts.NUMBER, t, r, pos))
+				continue
 			} else if unicode.IsLetter(s.cc) || s.cc == '@' {
-				val = s.matchWhile(func(r rune) bool {
+				v, pos := s.matchWhile(func(r rune) bool {
 					return unicode.IsLetter(s.cc) || s.cc == '@'
 				})
-				raw = val.(string)
 
-				if res, ok := consts.BUILD_INS[val.(string)]; ok {
-					kind = res
+				if res, ok := consts.BUILD_INS[v]; ok {
+					token = append(token, s.buildToken(res, v, v, pos))
+					continue
 				} else {
-					s.error(val.(string), "unknown identifier, view https://github.com/xnacly/emmy for the complete reference")
+					s.error(v, "unknown identifier, view https://github.com/xnacly/emmy for the complete reference")
 					return []consts.Token{}
 				}
 			} else {
@@ -148,18 +159,8 @@ func (s *Scanner) Start() []consts.Token {
 			}
 		}
 
-		// TODO: fix position calculation
-		pos := s.p
-
-		token = append(token, consts.Token{
-			Pos:     pos,
-			Kind:    kind,
-			Content: val,
-		})
-
-		if kind != consts.IDENTIFIER && kind != consts.NUMBER {
-			s.advance()
-		}
+		token = append(token, s.buildToken(kind, val, raw, s.p))
+		s.advance()
 	}
 	return token
 }
