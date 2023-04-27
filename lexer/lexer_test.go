@@ -1,6 +1,10 @@
 package lexer
 
 import (
+	"fmt"
+	"log"
+	"strconv"
+	"strings"
 	"testing"
 
 	"github.com/xNaCly/emmy/consts"
@@ -10,7 +14,7 @@ import (
 func testHelper(t *testing.T, m map[string]any, matcher func(k string, v any) (bool, any)) {
 	for k, v := range m {
 		if ok, val := matcher(k, v); !ok {
-			t.Errorf("wanted %v, got %v", v, val)
+			t.Errorf("wanted %v: got %v", v, val)
 		}
 	}
 }
@@ -46,6 +50,43 @@ func TestLexerNumbers(t *testing.T) {
 	testHelper(t, tests, func(k string, v any) (bool, any) {
 		o := s.NewInput(k).Start()[0].Content.(float64)
 		return (o - v.(float64)) < 0.01, o
+	})
+}
+
+func TestLexerPositions(t *testing.T) {
+	tests := map[string]any{
+		"1+1":                         "0,1,2",
+		"+0.25-4":                     "0,1,5,6",
+		"@sqrt+129_0-":                "0,5,6,11",
+		"12091__102910.0129-+9128791": "0,18,19,20",
+	}
+
+	s := NewScanner()
+
+	testHelper(t, tests, func(k string, v any) (bool, any) {
+		o := s.NewInput(k).Start()
+		y := true
+		a := make([]int, 0)
+
+		for _, val := range strings.Split(v.(string), ",") {
+			i, _ := strconv.ParseInt(val, 10, 64)
+			a = append(a, int(i))
+		}
+
+		r := make([]string, 0)
+		for _, token := range o {
+			r = append(r, fmt.Sprint(token.Pos))
+		}
+
+		for i, token := range o {
+			if token.Pos != a[i] {
+				log.Printf("error: %+v.Kind, does not match %d", token, a[i])
+				y = false
+				break
+			}
+		}
+
+		return y, strings.Join(r, ",")
 	})
 }
 
