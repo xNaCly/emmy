@@ -11,9 +11,10 @@ import (
 )
 
 type Scanner struct {
-	in []rune // input string
-	p  int    // current position in input
-	cc rune   // current character in input
+	hasError bool   // determines, whether or not to return tokens, if true return array of tokens with length 0
+	in       []rune // input string
+	p        int    // current position in input
+	cc       rune   // current character in input
 }
 
 func NewScanner() *Scanner {
@@ -49,10 +50,12 @@ func (s *Scanner) isAtEnd() bool {
 }
 
 func (s *Scanner) error(lexem string, msg string) {
+	s.hasError = true
 	pos := s.p - len(lexem)
+
 	if pos < 0 {
 		pos = 0
-	} else {
+	} else if len(lexem) == 1 {
 		pos += 1
 	}
 
@@ -66,7 +69,6 @@ func (s *Scanner) error(lexem string, msg string) {
 		strings.Repeat(" ", pos),
 		msg,
 	)
-	s.cc = 0
 }
 
 // returns all runes matching the matcher function as a string, returns a found type
@@ -151,16 +153,19 @@ func (s *Scanner) Start() []consts.Token {
 					continue
 				} else {
 					s.error(v, "unknown identifier, view https://github.com/xnacly/emmy for the complete reference")
-					return []consts.Token{}
 				}
 			} else {
 				s.error(string(s.cc), "unexpected character")
-				return []consts.Token{}
 			}
 		}
 
 		token = append(token, s.buildToken(kind, val, raw, s.p))
 		s.advance()
 	}
-	return token
+	if s.hasError {
+		log.Println("Detected multiple syntax errors, stopping...")
+		return nil
+	} else {
+		return token
+	}
 }
