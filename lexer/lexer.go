@@ -17,6 +17,7 @@ type Scanner struct {
 	cc       rune   // current character in input
 }
 
+// Instantiates a lexer.Scanner struct with default values
 func NewScanner() *Scanner {
 	return &Scanner{
 		p:  0,
@@ -25,6 +26,7 @@ func NewScanner() *Scanner {
 	}
 }
 
+// Provides the lexer.Scanner struct with new input
 func (s *Scanner) NewInput(input string) *Scanner {
 	s.p = 0
 	s.in = []rune(input)
@@ -36,6 +38,8 @@ func (s *Scanner) NewInput(input string) *Scanner {
 	return s
 }
 
+// Moves the cursor of the lexer.Scanner to the next character in the input.
+// if at the end of the input, sets lexer.Scanner.cc to 0
 func (s *Scanner) advance() {
 	if !s.isAtEnd() && s.p+1 < len(s.in) {
 		s.p++
@@ -45,10 +49,12 @@ func (s *Scanner) advance() {
 	}
 }
 
+// Returns true if position is equal to length of lexer.Scanner.in or lexer.Scanner.cc is 0
 func (s *Scanner) isAtEnd() bool {
 	return s.p == len(s.in) || s.cc == 0
 }
 
+// Pretty prints error messages
 func (s *Scanner) error(lexem string, msg string) {
 	s.hasError = true
 	pos := s.p - len(lexem)
@@ -71,7 +77,7 @@ func (s *Scanner) error(lexem string, msg string) {
 	)
 }
 
-// returns all runes matching the matcher function as a string, returns a found type
+// Returns all runes matching the matcher function as a string, returns the found type as an int
 func (s *Scanner) matchWhile(matcher func(rune) bool) (string, int) {
 	b := strings.Builder{}
 	start := s.p
@@ -82,6 +88,7 @@ func (s *Scanner) matchWhile(matcher func(rune) bool) (string, int) {
 	return b.String(), start
 }
 
+// Builds a consts.Token struct out of the given parameters
 func (s *Scanner) buildToken(kind int, val any, raw string, p int) consts.Token {
 	return consts.Token{
 		Pos:     p,
@@ -91,6 +98,7 @@ func (s *Scanner) buildToken(kind int, val any, raw string, p int) consts.Token 
 	}
 }
 
+// starts lexing, returns array of consts.Token
 func (s *Scanner) Start() []consts.Token {
 	if len(s.in) == 0 {
 		return []consts.Token{}
@@ -162,6 +170,7 @@ func (s *Scanner) Start() []consts.Token {
 		token = append(token, s.buildToken(kind, val, raw, s.p))
 		s.advance()
 	}
+
 	if s.hasError {
 		log.Println("Detected multiple syntax errors, stopping...")
 		return nil
