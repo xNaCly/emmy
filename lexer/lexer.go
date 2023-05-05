@@ -109,6 +109,8 @@ func (s *Scanner) Start() []consts.Token {
 		var val any
 		var raw string
 		switch s.cc {
+		case ' ':
+			kind = consts.UNKNOWN
 		case '+':
 			kind = consts.PLUS
 		case '-':

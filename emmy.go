@@ -5,30 +5,33 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strings"
 
 	"github.com/xNaCly/emmy/consts"
 	"github.com/xNaCly/emmy/lexer"
+	"github.com/xNaCly/emmy/parser"
 )
 
-func debug_printToken(t []consts.Token) {
+func run(in string, scanner *lexer.Scanner, parser *parser.Parser) {
+	t := scanner.NewInput(os.Args[1]).Start()
 	for _, v := range t {
 		fmt.Printf("[%s][%d][%v]\n", consts.KIND_LOOKUP[v.Kind], v.Pos, v.Content)
 	}
+	parser.NewInput(t)
 }
 
 func main() {
+	l := lexer.NewScanner()
+	p := parser.NewParser()
 	if len(os.Args) > 1 {
-		debug_printToken(lexer.NewScanner().NewInput(os.Args[1]).Start())
+		run(os.Args[1], l, p)
 		return
 	}
 	log.Println("welcome to the emmy repl")
 	prompt := "ε> "
 	reader := bufio.NewReader(os.Stdin)
-	l := lexer.NewScanner()
 	for {
 		fmt.Print(prompt)
 		line, _ := reader.ReadString('\n')
-		debug_printToken(l.NewInput(strings.TrimSpace(line)).Start())
+		run(line, l, p)
 	}
 }
