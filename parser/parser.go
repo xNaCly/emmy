@@ -19,4 +19,32 @@ func (p *Parser) NewInput(in []consts.Token) *Parser {
 	return p
 }
 
-func (p *Parser) parse() {}
+func (p *Parser) Parse() []consts.Expression {
+	stmts := make([]consts.Expression, 0)
+	for !p.isAtEnd() {
+		stmts = append(stmts, p.statment())
+	}
+	return stmts
+}
+
+func (p *Parser) statment() consts.Expression {
+	return nil
+}
+
+func (p *Parser) peek() consts.Token {
+	return p.input[p.pos]
+}
+
+func (p *Parser) prev() consts.Token {
+	return p.input[p.pos-1]
+}
+
+func (p *Parser) advance() {
+	if !p.isAtEnd() {
+		p.pos++
+	}
+}
+
+func (p *Parser) isAtEnd() bool {
+	return p.pos >= len(p.input)
+}

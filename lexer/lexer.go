@@ -167,7 +167,6 @@ func (s *Scanner) Start() []consts.Token {
 					token = append(token, s.buildToken(res, v, v, pos))
 				} else {
 					token = append(token, s.buildToken(consts.IDENTIFIER, v, v, pos))
-					// s.error(v, "unknown identifier, view https://github.com/xnacly/emmy for the complete reference")
 				}
 				continue
 			} else {
