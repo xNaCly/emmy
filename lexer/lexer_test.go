@@ -21,11 +21,10 @@ func testHelper(t *testing.T, m map[string]any, matcher func(k string, v any) (b
 
 func TestLexerError(t *testing.T) {
 	tests := map[string]any{
-		"test":     0,
-		"!":        0,
-		"=":        0,
-		"x":        0,
-		"aoadojad": 0,
+		"!": 0,
+		"?": 0,
+		"&": 0,
+		"_": 0,
 	}
 
 	s := NewScanner()
@@ -33,6 +32,22 @@ func TestLexerError(t *testing.T) {
 	testHelper(t, tests, func(k string, v any) (bool, any) {
 		o := len(s.NewInput(k).Start())
 		return o == v, o
+	})
+}
+
+func TestLexerIdentifier(t *testing.T) {
+	tests := map[string]any{
+		"a := b":    consts.IDENTIFIER,
+		"b_a":       consts.IDENTIFIER,
+		"scanner_b": consts.IDENTIFIER,
+		"u":         consts.IDENTIFIER,
+	}
+
+	s := NewScanner()
+
+	testHelper(t, tests, func(k string, v any) (bool, any) {
+		o := s.NewInput(k).Start()[0].Kind
+		return o == v, v
 	})
 }
 

@@ -40,6 +40,8 @@ const (
 	BRACKETCLOSE   // ]
 	BRACEOPEN      // {
 	BRACECLOSE     // }
+	COLON          // :
+	EQUAL          // =
 
 	// built in functions
 	SIN
@@ -56,6 +58,8 @@ const (
 
 var KIND_LOOKUP = map[int]string{
 	UNKNOWN:        "UNKNOWN",
+	COLON:          "COLON",
+	EQUAL:          "EQUAL",
 	NUMBER:         "NUMBER",
 	PLUS:           "PLUS",
 	MINUS:          "MINUS",

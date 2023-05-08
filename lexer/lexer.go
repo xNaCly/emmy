@@ -110,11 +110,16 @@ func (s *Scanner) Start() []consts.Token {
 		var raw string
 		switch s.cc {
 		case ' ':
-			kind = consts.UNKNOWN
+			s.advance()
+			continue
 		case '+':
 			kind = consts.PLUS
+		case ':':
+			kind = consts.COLON
 		case '-':
 			kind = consts.MINUS
+		case '=':
+			kind = consts.EQUAL
 		case '/':
 			kind = consts.DIVISION
 		case '*':
@@ -155,15 +160,16 @@ func (s *Scanner) Start() []consts.Token {
 				continue
 			} else if unicode.IsLetter(s.cc) || s.cc == '@' {
 				v, pos := s.matchWhile(func(r rune) bool {
-					return unicode.IsLetter(s.cc) || s.cc == '@'
+					return ('a' <= r && r <= 'z') || ('A' <= r && r <= 'Z') || r == '@' || r == '_'
 				})
 
 				if res, ok := consts.BUILD_INS[v]; ok {
 					token = append(token, s.buildToken(res, v, v, pos))
-					continue
 				} else {
-					s.error(v, "unknown identifier, view https://github.com/xnacly/emmy for the complete reference")
+					token = append(token, s.buildToken(consts.IDENTIFIER, v, v, pos))
+					// s.error(v, "unknown identifier, view https://github.com/xnacly/emmy for the complete reference")
 				}
+				continue
 			} else {
 				s.error(string(s.cc), "unexpected character")
 			}
