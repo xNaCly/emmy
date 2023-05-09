@@ -13,12 +13,13 @@ import (
 
 var DEBUG = false
 
-func run(in string, scanner *lexer.Scanner, parser *parser.Parser) {
-	t := scanner.NewInput(in).Start()
+func run(in string, s *lexer.Scanner, p *parser.Parser) {
+	t := s.NewInput(in).Start()
 	if DEBUG {
 		fmt.Println(lexer.String(t))
 	}
-	// parser.NewInput(t).Parse()
+	stmts := p.NewInput(t).Parse()
+	parser.String(stmts)
 }
 
 func main() {

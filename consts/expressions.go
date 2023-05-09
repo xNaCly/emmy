@@ -1,7 +1,10 @@
 package consts
 
+import "fmt"
+
 type Expression interface {
 	Eval() float64
+	String() string
 }
 type PlusExpression struct {
 	Lhs Expression
@@ -31,4 +34,16 @@ func (e MultiplicationExpression) Eval() float64 {
 }
 func (e DivisionExpression) Eval() float64 {
 	return e.Lhs.Eval() / e.Rhs.Eval()
+}
+func (e PlusExpression) String() string {
+	return fmt.Sprintf("[+; left=%s, right=%s]\n", e.Lhs.String(), e.Rhs.String())
+}
+func (e MinusExpression) String() string {
+	return fmt.Sprintf("[-; left=%s, right=%s]\n", e.Lhs.String(), e.Rhs.String())
+}
+func (e MultiplicationExpression) String() string {
+	return fmt.Sprintf("[*; left=%s, right=%s]\n", e.Lhs.String(), e.Rhs.String())
+}
+func (e DivisionExpression) String() string {
+	return fmt.Sprintf("[/; left=%s, right=%s]\n", e.Lhs.String(), e.Rhs.String())
 }

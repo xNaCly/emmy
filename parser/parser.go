@@ -1,6 +1,10 @@
 package parser
 
-import "github.com/xNaCly/emmy/consts"
+import (
+	"strings"
+
+	"github.com/xNaCly/emmy/consts"
+)
 
 type Parser struct {
 	input []consts.Token
@@ -19,6 +23,16 @@ func (p *Parser) NewInput(in []consts.Token) *Parser {
 	return p
 }
 
+func String(s []consts.Expression) string {
+	b := strings.Builder{}
+	for _, v := range s {
+		if v != nil {
+			b.WriteString(v.String())
+		}
+	}
+	return b.String()
+}
+
 func (p *Parser) Parse() []consts.Expression {
 	stmts := make([]consts.Expression, 0)
 	for !p.isAtEnd() {
@@ -28,6 +42,7 @@ func (p *Parser) Parse() []consts.Expression {
 }
 
 func (p *Parser) statment() consts.Expression {
+	p.advance()
 	return nil
 }
 
