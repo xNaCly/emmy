@@ -16,21 +16,35 @@ Invoke `emmy` without any arguments to start the repl and with an argument to in
 
 ```console
 $ emmy "25+25"
-50
+= 50
 ```
 
 > the emmy shell is prefixed with `ε>`
 
-```emmy
+```text
+Welcome to the emmy repl
 ε> 25+25
-50.0
+= 50.0
 ```
 
 ### Reference
 
 Emmy is interpreted on a line by line basis, hitting enter will make emmy forget everything put in before.
 
-### Operations
+#### REPL - commands
+
+```text
+Welcome to the emmy repl
+ε> .help
+.exit      quits the repl
+.debug     toggles debug mode
+.cls       clears the screen
+.help      prints this message
+
+ε>
+```
+
+#### Operations
 
 | Name           | Symbol | Description                                                                                                                         | Example     |
 | -------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------- | ----------- |
@@ -41,7 +55,7 @@ Emmy is interpreted on a line by line basis, hitting enter will make emmy forget
 | Modulo         | `%`    | Dividies the preceding operand by the succeeding operand, returns remainder, read more [here](https://en.wikipedia.org/wiki/Modulo) | `16%15` = 1 |
 | Power          | `^`    | Raises the preceding operand to the power of the succeeding operand                                                                 | `2^7` = 128 |
 
-### Constants
+#### Constants
 
 | Name | Symbol | Description            | Example            |
 | ---- | ------ | ---------------------- | ------------------ |
@@ -49,7 +63,7 @@ Emmy is interpreted on a line by line basis, hitting enter will make emmy forget
 | e    | `@e`   | holds the value of e   | `@e` = 2.7182...   |
 | phi  | `@phi` | holds the value of phi | `@phi` = 1.6180... |
 
-### Functions
+#### Functions
 
 > `x,y` represent the functions arguments
 
@@ -63,7 +77,7 @@ Emmy is interpreted on a line by line basis, hitting enter will make emmy forget
 | ln   | `@ln{x}`   | calculates the natural logarithm (log_e) of x | `@ln{5}`= 1.609438   |
 | lg   | `@lg{x}`   | calculates the common logarithm (log_10) of x | `@lg{5}`= 0.69897    |
 
-### Planned features
+#### Planned features
 
 - convert to other number representations:
   - binary

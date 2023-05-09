@@ -1,0 +1,217 @@
+<!-- This file was generated using the fleck markdown to html compiler (https://github.com/xnacly/fleck) -->
+<!-- If you found a bug in the generated html, please create a bug report here: https://github.com/xnacly/fleck/issues/new -->
+<!-- fleck was invoked as follows:fleck --syntax --live-preview README-->
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8" /><meta name="generator" content="fleckbare:0.0.3-alpha+math.2" /><title>README</title><style>
+:root {
+    --gray: #d0d7de;
+    --light-gray: #f2f1f1;
+    --lighter-gray: #f3f2f2; 
+    --info: rgb(2, 122, 255);
+    --info-lighter: rgba(2, 122, 255, 0.1);
+    --warning: rgb(224, 220, 0);
+    --warning-lighter: rgba(224, 222, 113, 0.2);
+    --danger: rgb(251, 70, 76);
+    --danger-lighter: rgba(251, 70, 76, 0.1);
+    --note: rgb(83, 223, 221);
+    --note-lighter: rgb(83, 223, 221, 0.2); 
+}
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+    font-size: 16px;
+    line-height: 1.5;
+    word-wrap: break-word;
+    margin: 0;
+    padding: 2rem;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.main {
+    min-width: 50%;
+    max-width: 50%;
+    margin: 0 auto;
+}
+@media (max-width: 1250px) {
+    .main {
+        max-width: 80%;
+        min-width: 80%;
+    }
+}
+@media (max-width: 600px) {
+    .main {
+        max-width: 100%;
+        min-width: 100%;
+    }
+}
+img {
+    display: block;
+    border-radius: 0.5rem;
+    max-width: 80%;
+}
+code:not(pre > code){
+    background: var(--light-gray);
+    padding: 0.2rem;
+    border-radius: 0.2rem;
+    color: black;
+    font-size: 85%;
+    font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
+}
+pre {
+    background: var(--light-gray);
+    font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
+    color: black;
+    padding: 0.5rem;
+    border-radius: 0.2rem;
+    overflow-y: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    border-radius: 6px;
+}
+h1, h2 {
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--gray);
+    font-weight: 600;
+}
+h3, h4, h5, h6{
+    font-weight: 600;
+}
+h6{
+    color: var(--gray);
+}
+blockquote {
+    border-left: 0.25rem solid #d0d7de;
+    color: #656d76;
+    padding: 0.25rem;
+    padding-right: 2rem;
+    padding-left: 1.25rem;
+    margin: 0;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-top-right-radius: 0.2rem;
+    border-bottom-right-radius: 0.2rem;
+}
+blockquote .warning {
+    color: var(--warning);
+}
+blockquote .info {
+    color: var(--info);
+}
+blockquote .danger {
+    color: var(--danger);
+}
+blockquote .note {
+    color: var(--note);
+}
+.callout {
+    padding: 1rem;
+    border-radius: 0.25rem;
+    color: black;
+}
+.blockquote-info {
+    border: 0;
+    background-color: var(--info-lighter);
+}
+.blockquote-danger {
+    border: 0;
+    background-color: var(--danger-lighter);
+}
+.blockquote-warning {
+    border-radius: 0.5rem;
+    border: 0;
+    background-color: var(--warning-lighter);
+}
+.blockquote-note {
+    border: 0;
+    background-color: var(--note-lighter);
+}
+hr {
+    height: 0.15rem;
+    padding: 0;
+    margin: 0;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    background: var(--gray);
+    border: 0;
+}
+a, a:visited, a:active {
+    color: var(--info);
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+#toc {
+    list-style: none;
+}
+#toc .toc-h2 {
+    margin-left: 0.5rem;
+}
+#toc .toc-h3 {
+    margin-left: 1rem;
+}
+#toc .toc-h4 {
+    margin-left: 1.5rem;
+}
+#toc .toc-h5 {
+    margin-left: 1.75rem;
+}
+#toc .toc-h6 {
+    margin-left: 2rem;
+}
+strong {
+    font-weight: 600;
+}
+</style><link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.min.css" rel="stylesheet"></head><body><div class='main'><h1 id="Emmy - a math interpreter">Emmy - a math interpreter</h1><p>Emmy supports a subset of mathematical methods and operations and is intended to compute simple mathematical expressions.
+</p><blockquote class="callout blockquote-warning"> <strong class="warning">Warning</strong></br> Emmy is a work in progress, currently only the scanner is implemented.</blockquote><h2 id="Name">Name</h2><p>Emmy is named after <a href="https://en.wikipedia.org/wiki/Emmy_Noether">Emmy Noether</a>, a german mathematician who contributed to abstract algebra.
+</p><h2 id="Usage">Usage</h2><p>Invoke <code>emmy</code> without any arguments to start the repl and with an argument to instantly get the computed result:
+</p><p><pre ><code class="language-console">$ emmy &#34;25+25&#34;
+= 50
+</code></pre></p><blockquote> the emmy shell is prefixed with <code>ε></code></blockquote><p><pre ><code class="language-text">Welcome to the emmy repl
+ε> 25+25
+= 50.0
+</code></pre></p><h3 id="Reference">Reference</h3><p>Emmy is interpreted on a line by line basis, hitting enter will make emmy forget everything put in before.
+</p><h4 id="REPL - commands">REPL - commands</h4><p><pre ><code class="language-text">Welcome to the emmy repl
+ε> .help
+.exit      quits the repl
+.debug     toggles debug mode
+.cls       clears the screen
+.help      prints this message
+
+ε>
+</code></pre></p><h4 id="Operations">Operations</h4><p>| Name           | Symbol | Description                                                                                                                         | Example     |
+| -------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| Addition       | <code>+</code>    | Adds the preceding and the succeeding operands                                                                                      | <code>1+2</code> = 3   |
+| Subtraction    | <code>-</code>    | Subtracts the succeeding operand from the preceding operand                                                                         | <code>3-1</code> = 2   |
+| Multiplication | <code>*</code>    | Multiplies the preceding operand by the succeeding operand                                                                          | <code>2*2</code> = 4   |
+| Division       | <code>/</code>    | Dividies the preceding operand by the succeeding operand                                                                            | <code>4/2</code> = 2   |
+| Modulo         | <code>%</code>    | Dividies the preceding operand by the succeeding operand, returns remainder, read more <a href="https://en.wikipedia.org/wiki/Modulo">here</a> | <code>16%15</code> = 1 |
+| Power          | <code>^</code>    | Raises the preceding operand to the power of the succeeding operand                                                                 | <code>2^7</code> = 128 |
+</p><h4 id="Constants">Constants</h4><p>| Name | Symbol | Description            | Example            |
+| ---- | ------ | ---------------------- | ------------------ |
+| π    | <code>@pi</code>  | holds the value of pi  | <code>@pi</code> = 3.1415...  |
+| e    | <code>@e</code>   | holds the value of e   | <code>@e</code> = 2.7182...   |
+| phi  | <code>@phi</code> | holds the value of phi | <code>@phi</code> = 1.6180... |
+</p><h4 id="Functions">Functions</h4><blockquote> <code>x,y</code> represent the functions arguments</blockquote><p>| Name | Symbol     | Description                                   | Example              |
+| ---- | ---------- | --------------------------------------------- | -------------------- |
+| sqrt | <code>@sqrt{x}</code> | calculates the square root of x               | <code>@sqrt{25}</code> = 5      |
+| sin  | <code>@sin{x}</code>  | calculates the sinus of x                     | <code>@sin{5}</code>= -0.132352 |
+| cos  | <code>@cos{x}</code>  | calculates the cos of x                       | <code>@cos{5}</code>= 0.991203  |
+| tan  | <code>@tan{x}</code>  | calculates the tan of x                       | <code>@tan{5}</code>= -0.133526 |
+| lb   | <code>@lb{x}</code>   | calculates the binary logarithm (log2) of x  | `@lb{5}`= 2.321928   || ln   | <code>@ln{x}</code>   | calculates the natural logarithm (loge) of x | `@ln{5}`= 1.609438   || lg   | <code>@lg{x}</code>   | calculates the common logarithm (log10) of x | `@lg{5}`= 0.69897    |</p><h4 id="Planned features">Planned features</h4><ul><li> convert to other number representations:</br>  - binary</br>  - hexadecimal</br>  - octal</br>  - base32</br>  - base64</br></li><li> bit operations (and, or, xor, nor)</br></li><li> arc functions:</br>  - arccos</br>  - arcsin</br>  - arctan</br></li></ul></div><script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script><script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js"></script></body></html>
+		<script>
+			const socket = new WebSocket("ws://localhost:12345/content");
+			socket.onopen = function (event) {
+				console.log("[Fleck] Connected to live preview server");
+			};
+			socket.onmessage = function (event) {
+				if (event.data == "content_changed") {
+					console.log("[Fleck] Received content change..");
+					window.location.reload();
+				}
+			};
+		</script>
+		
