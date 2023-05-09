@@ -22,7 +22,7 @@ func testHelper(t *testing.T, m map[string]any, matcher func(k string, v any) (b
 func TestParserError(t *testing.T) {
 	tests := map[string]any{
 		"1//2": struct{}{},
-		"1/1":  struct{}{},
+		"1/":   struct{}{},
 		"5++":  struct{}{},
 		"6++/": struct{}{},
 		"8*/":  struct{}{},
