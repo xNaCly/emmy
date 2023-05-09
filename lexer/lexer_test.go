@@ -21,10 +21,10 @@ func testHelper(t *testing.T, m map[string]any, matcher func(k string, v any) (b
 
 func TestLexerError(t *testing.T) {
 	tests := map[string]any{
-		"!": 0,
-		"?": 0,
-		"&": 0,
-		"_": 0,
+		"!": 2,
+		"?": 2,
+		"&": 2,
+		"_": 2,
 	}
 
 	s := NewScanner()
@@ -70,10 +70,10 @@ func TestLexerNumbers(t *testing.T) {
 
 func TestLexerPositions(t *testing.T) {
 	tests := map[string]any{
-		"1+1":                        "0,1,2",
-		"+0.25-4":                    "0,1,5,6",
-		"@sqrt+129_0-":               "0,5,6,11",
-		"12091_102910.0129-+9128791": "0,17,18,19",
+		"1+1":                        "0,1,2,3",
+		"+0.25-4":                    "0,1,5,6,7",
+		"@sqrt+129_0-":               "0,5,6,11,12",
+		"12091_102910.0129-+9128791": "0,17,18,19,26",
 	}
 
 	s := NewScanner()
