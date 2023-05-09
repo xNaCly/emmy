@@ -1,28 +1,41 @@
 package consts
 
-import "fmt"
+import "math"
 
 type Expression interface {
 	Eval() float64
-	String() string
+}
+type NumberExpression struct {
+	Value float64
 }
 type PlusExpression struct {
-	Lhs Expression
-	Rhs Expression
+	Lhs Expression `json:"plus-left"`
+	Rhs Expression `json:"plus-right"`
 }
 type MinusExpression struct {
-	Lhs Expression
-	Rhs Expression
+	Lhs Expression `json:"minus-left"`
+	Rhs Expression `json:"minus-right"`
 }
 type MultiplicationExpression struct {
-	Lhs Expression
-	Rhs Expression
+	Lhs Expression `json:"mul-left"`
+	Rhs Expression `json:"mul-right"`
 }
 type DivisionExpression struct {
-	Lhs Expression
-	Rhs Expression
+	Lhs Expression `json:"div-left"`
+	Rhs Expression `json:"div-right"`
 }
+type FactorExpression struct {
+	Lhs Expression `json:"fac-left"`
+	Rhs Expression `json:"fac-right"`
+}
+type EofExpression struct{}
 
+func (e EofExpression) Eval() any {
+	return nil
+}
+func (e NumberExpression) Eval() float64 {
+	return e.Value
+}
 func (e PlusExpression) Eval() float64 {
 	return e.Lhs.Eval() + e.Rhs.Eval()
 }
@@ -35,15 +48,6 @@ func (e MultiplicationExpression) Eval() float64 {
 func (e DivisionExpression) Eval() float64 {
 	return e.Lhs.Eval() / e.Rhs.Eval()
 }
-func (e PlusExpression) String() string {
-	return fmt.Sprintf("[+; left=%s, right=%s]\n", e.Lhs.String(), e.Rhs.String())
-}
-func (e MinusExpression) String() string {
-	return fmt.Sprintf("[-; left=%s, right=%s]\n", e.Lhs.String(), e.Rhs.String())
-}
-func (e MultiplicationExpression) String() string {
-	return fmt.Sprintf("[*; left=%s, right=%s]\n", e.Lhs.String(), e.Rhs.String())
-}
-func (e DivisionExpression) String() string {
-	return fmt.Sprintf("[/; left=%s, right=%s]\n", e.Lhs.String(), e.Rhs.String())
+func (e FactorExpression) Eval() float64 {
+	return math.Pow(e.Lhs.Eval(), e.Rhs.Eval())
 }
