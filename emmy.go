@@ -18,7 +18,7 @@ func run(in string, s *lexer.Scanner, p *parser.Parser) {
 	t := s.NewInput(in).Start()
 	stmts := p.NewInput(t, in).Parse()
 	if DEBUG {
-		fmt.Println("Lexed tokens: \n" + lexer.String(t) + "\nAST: \n" + parser.String(stmts))
+		fmt.Println(lexer.String(t), parser.String(stmts))
 	}
 	fmt.Println("=", p.Eval(stmts))
 }
