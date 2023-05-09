@@ -117,7 +117,7 @@ func (s *Scanner) Start() []consts.Token {
 		var val any
 		var raw string
 		switch s.cc {
-		case ' ':
+		case ' ', '\n':
 			s.advance()
 			continue
 		case '+':
