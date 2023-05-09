@@ -187,9 +187,13 @@ func (s *Scanner) Start() []consts.Token {
 	}
 
 	if s.hasError {
-		log.Println("Detected multiple syntax errors, stopping...")
-		return nil
-	} else {
-		return token
+		log.Println("Detected a syntax error, trying to continue with parsing...")
 	}
+	token = append(token, consts.Token{
+		Pos:     len(s.in),
+		Kind:    consts.EOF,
+		Content: nil,
+		Raw:     "",
+	})
+	return token
 }
