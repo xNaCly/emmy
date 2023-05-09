@@ -38,6 +38,14 @@ func (s *Scanner) NewInput(input string) *Scanner {
 	return s
 }
 
+func String(t []consts.Token) string {
+	b := strings.Builder{}
+	for _, v := range t {
+		b.WriteString(fmt.Sprintf("[%s][%d][%v]\n", consts.KIND_LOOKUP[v.Kind], v.Pos, v.Content))
+	}
+	return b.String()
+}
+
 // Moves the cursor of the lexer.Scanner to the next character in the input.
 // if at the end of the input, sets lexer.Scanner.cc to 0
 func (s *Scanner) advance() {
