@@ -21,7 +21,8 @@ var BUILD_INS = map[string]int{
 }
 
 const (
-	UNKNOWN    = iota + 1
+	UNKNOWN = iota + 1
+	EOF
 	NUMBER     // 0-9
 	IDENTIFIER // a-Z
 
@@ -58,6 +59,7 @@ const (
 
 var KIND_LOOKUP = map[int]string{
 	UNKNOWN:        "UNKNOWN",
+	EOF:            "EOF",
 	COLON:          "COLON",
 	EQUAL:          "EQUAL",
 	NUMBER:         "NUMBER",
@@ -85,4 +87,24 @@ var KIND_LOOKUP = map[int]string{
 	LB:             "@LB",
 	LN:             "@LN",
 	LG:             "@LG",
+}
+
+var TOKEN_LOOKUP = map[int]string{
+	UNKNOWN:        "UNKNOWN",
+	EOF:            "EOF",
+	COLON:          ":",
+	EQUAL:          "=",
+	PLUS:           "+",
+	MINUS:          "-",
+	DIVISION:       "/",
+	MULTIPLICATION: "*",
+	POWER:          "^",
+	COMMA:          ",",
+	SEMICOLON:      ";",
+	PARENOPEN:      "(",
+	PARENCLOSE:     ")",
+	BRACKETOPEN:    "[",
+	BRACKETCLOSE:   "]",
+	BRACEOPEN:      "{",
+	BRACECLOSE:     "}",
 }
