@@ -8,6 +8,7 @@ import (
 var commands = [][]string{
 	{".exit", "quits the repl"},
 	{".debug", "toggles debug mode"},
+	{".cls", "clears the screen"},
 	{".help", "prints this message"},
 }
 
