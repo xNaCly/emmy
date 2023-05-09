@@ -14,12 +14,13 @@ import (
 var DEBUG = false
 
 func run(in string, s *lexer.Scanner, p *parser.Parser) {
+	in = strings.TrimSpace(in)
 	t := s.NewInput(in).Start()
+	stmts := p.NewInput(t, in).Parse()
 	if DEBUG {
-		fmt.Println(lexer.String(t))
+		fmt.Println("Lexed tokens: \n" + lexer.String(t) + "\nAST: \n" + parser.String(stmts))
 	}
-	stmts := p.NewInput(t).Parse()
-	parser.String(stmts)
+	fmt.Println("=", p.Eval(stmts))
 }
 
 func main() {
@@ -47,12 +48,13 @@ func main() {
 				os.Exit(0)
 			case ".help":
 				fmt.Println(consts.HELP_MSG)
+			case ".cls":
+				fmt.Print("\033c")
 			case ".debug":
 				DEBUG = !DEBUG
 				fmt.Printf("Toggled debug mode to: '%v'\n", DEBUG)
 			default:
 				fmt.Printf("Unknown command: '%s'\n", l)
-				continue
 			}
 		} else {
 			run(line, l, p)
