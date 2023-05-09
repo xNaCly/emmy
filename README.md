@@ -4,7 +4,7 @@ Emmy supports a subset of mathematical methods and operations and is intended to
 
 > **Warning**
 >
-> Emmy is a work in progress, currently only the scanner is implemented.
+> Emmy is a work in progress, currently only a subset of the [Reference](#Reference) is implemented
 
 ## Name
 
