@@ -28,6 +28,7 @@ func NewScanner() *Scanner {
 
 // Provides the lexer.Scanner struct with new input
 func (s *Scanner) NewInput(input string) *Scanner {
+	s.hasError = false
 	s.p = 0
 	s.in = []rune(input)
 	if len(input) == 0 {

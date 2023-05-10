@@ -25,6 +25,7 @@ func NewParser() *Parser {
 }
 
 func (p *Parser) NewInput(in []consts.Token, input string) *Parser {
+	p.err = false
 	p.input = in
 	p.pos = 0
 	p.inputString = input
@@ -65,22 +66,24 @@ func (p *Parser) statement() consts.Expression {
 	return p.binaryStmt()
 }
 
-// TODO: needs to unwind to stop the repl
 func (p *Parser) error() {
 	p.err = true
 	t := p.peek()
 	tk := t.Kind
+
 	var val any
 	if t.Content != nil {
 		val = t.Content
 	} else {
 		val = consts.TOKEN_LOOKUP[tk]
 	}
+
 	if tk == consts.EOF {
 		log.Print("error: unexpected end of expression")
 	} else {
 		log.Printf("error: unexpected '%v' (%s) at position %d\n", val, consts.KIND_LOOKUP[tk], p.pos)
 	}
+
 	fmt.Printf("\n\t%s\n\t%s%s%s%s\n\n",
 		p.inputString,
 		strings.Repeat(" ", p.pos),
@@ -127,6 +130,7 @@ func (p *Parser) pointStatement() consts.Expression {
 
 func (p *Parser) lineStatement() consts.Expression {
 	lhs := p.pointStatement()
+
 	for p.match(consts.PLUS) {
 		lhs = consts.PlusExpression{
 			Lhs: lhs,
