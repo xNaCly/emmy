@@ -81,14 +81,20 @@ func (p *Parser) error() {
 	if tk == consts.EOF {
 		log.Print("error: unexpected end of expression")
 	} else {
-		log.Printf("error: unexpected '%v' (%s) at position %d\n", val, consts.KIND_LOOKUP[tk], p.pos)
+		log.Printf("error: unexpected '%v' (%s) at position %d\n", val, consts.KIND_LOOKUP[tk], t.Pos)
 	}
 
-	fmt.Printf("\n\t%s\n\t%s%s%s%s\n\n",
+	arrows := 1
+
+	if len(t.Raw) != 0 {
+		arrows = len(t.Raw)
+	}
+
+	fmt.Printf("\n\t%s\n\t%s%s\n\t%s%s\n\n",
 		p.inputString,
-		strings.Repeat(" ", p.pos),
-		"^",
-		strings.Repeat(" ", p.pos),
+		strings.Repeat(" ", t.Pos),
+		strings.Repeat("^", arrows),
+		strings.Repeat(" ", t.Pos),
 		"unexpected token",
 	)
 }

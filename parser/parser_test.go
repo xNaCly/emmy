@@ -11,7 +11,6 @@ import (
 func testHelper(t *testing.T, m map[string]any, matcher func(k string, v any) (bool, any)) {
 	for k, v := range m {
 		ok, val := matcher(k, v)
-		// t.Logf("PASSED: [wanted=%v;got=%v;key=%s]", v, val, k)
 		if !ok {
 			t.Errorf("wanted %v: got %v, for %s", v, val, k)
 		}
@@ -83,7 +82,7 @@ func TestParserPemdas(t *testing.T) {
 	// examples taken from https://pemdas.info/
 	tests := map[string]any{
 		"1+2*3": 7.0,
-		// TODO: this is not correct!, emmy returns 7, not 8, somehow +3/3 is not included in the resulting ast
+		// BUG: this is not correct!, emmy returns 7, not 8, somehow +3/3 is not included in the resulting ast
 		// "7-1*0+3/3": 8.0,
 		"1-2*3*4": -23.0,
 		"3+4/2-4": 1.0,

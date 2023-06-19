@@ -20,7 +20,7 @@ func run(in string, s *lexer.Scanner, p *parser.Parser) {
 	if DEBUG {
 		fmt.Println(lexer.String(t), parser.String(stmts))
 	}
-	fmt.Println("=", p.Eval(stmts))
+	fmt.Println("->", p.Eval(stmts))
 }
 
 func main() {
@@ -33,6 +33,8 @@ func main() {
 	}
 
 	fmt.Println("Welcome to the emmy repl")
+	fmt.Println("\nCommand overview:")
+	fmt.Println(consts.HELP_MSG)
 	prompt := "ε> "
 	reader := bufio.NewReader(os.Stdin)
 
